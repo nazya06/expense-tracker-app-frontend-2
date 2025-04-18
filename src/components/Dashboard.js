@@ -16,7 +16,7 @@ const Dashboard = () => {
       } catch (error) {
         console.error('Failed to fetch transactions:', error);
       } finally {
-        setLoading(false); // Only turn off loading once we're done
+        setLoading(false); 
       }
     };
   
@@ -29,22 +29,22 @@ const Dashboard = () => {
 
   return (
     <div style={{ padding: '20px', maxWidth: '800px', margin: '0 auto' }}>
-      <h1>Financial Dashboard</h1>
+      <h1>Дэшборд</h1>
       
       <button 
         onClick={() => setIsModalOpen(true)} 
         style={styles.addButton}
       >
-        Add Transaction
+        Добавить транзакцию
       </button>
 
-      {/* Transactions List */}
+
       <div style={styles.transactionsContainer}>
-        <h2>Recent Transactions</h2>
+        <h2>Последние транзакции</h2>
         {loading ? (
-          <p>Loading transactions...</p>
+          <p>Загрузка...</p>
         ) : transactions.length === 0 ? (
-          <p>No transactions found</p>
+          <p>Ничего не найдено</p>
         ) : (
           <ul style={styles.transactionList}>
             {transactions.map(transaction => (

@@ -4,11 +4,11 @@ import './Welcome.scss'; // optional styling
 
 const Welcome = () => (
   <div className="welcome-container">
-    <h1>Welcome to BudgetBuddy 💰</h1>
-    <p>Track your budgets, manage transactions, and take control of your finances.</p>
+    <h1>Добро пожаловать в Expense Tracker</h1>
+    <p>Войдите или зарегистрируйтесь</p>
     <div className="welcome-actions">
-      <Link to="/login" className="btn">Log In</Link>
-      <Link to="/register" className="btn">Register</Link>
+      <Link to="/login" className="btn">Логин</Link>
+      <Link to="/register" className="btn">Регистрация</Link>
     </div>
   </div>
 );

@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useBudget } from '../context/BudgetContext';
-
-const { budgetId } = useBudget();
+import styles from '../styles/TransactionFilter.module.scss';
 
 const TransactionFilter = ({ onFilterChange, budgetId }) => {
   const [categories, setCategories] = useState([]);
@@ -44,13 +43,18 @@ const TransactionFilter = ({ onFilterChange, budgetId }) => {
   };
 
   return (
-    <div className="filter-container">
-      <h3>🔍 Filter Transactions</h3>
+    <div className={styles.filterContainer}>
+      <h3 className={styles.heading}>Фильтр</h3>
 
-      <label>
-        Category:
-        <select name="CategoryId" onChange={handleChange} value={filters.categoryId}>
-          <option value="">All</option>
+      <label className={styles.field}>
+        Категория: 
+        <select
+          name="CategoryId"
+          onChange={handleChange}
+          value={filters.categoryId}
+          className={styles.select}
+        >
+          <option value="">все</option>
           {categories.map((cat) => (
             <option key={cat.id} value={cat.id}>
               {cat.name}
@@ -59,22 +63,39 @@ const TransactionFilter = ({ onFilterChange, budgetId }) => {
         </select>
       </label>
 
-      <label>
-        From:
-        <input type="date" name="dateFrom" value={filters.dateFrom} onChange={handleChange} />
+      <label className={styles.field}>
+        С:
+        <input
+          type="date"
+          name="dateFrom"
+          value={filters.dateFrom}
+          onChange={handleChange}
+          className={styles.input}
+        />
       </label>
 
-      <label>
-        To:
-        <input type="date" name="dateTo" value={filters.dateTo} onChange={handleChange} />
+      <label className={styles.field}>
+        По:
+        <input
+          type="date"
+          name="dateTo"
+          value={filters.dateTo}
+          onChange={handleChange}
+          className={styles.input}
+        />
       </label>
 
-      <label>
-        Sort By:
-        <select name="sortBy" value={filters.sortBy} onChange={handleChange}>
-          <option value="">Default</option>
-          <option value="date">Date</option>
-          <option value="amount">Amount</option>
+      <label className={styles.field}>
+        Сортировать по:
+        <select
+          name="sortBy"
+          value={filters.sortBy}
+          onChange={handleChange}
+          className={styles.select}
+        >
+          <option value="">умолчанию</option>
+          <option value="date">дате</option>
+          <option value="amount">сумме</option>
         </select>
       </label>
     </div>
@@ -82,3 +103,4 @@ const TransactionFilter = ({ onFilterChange, budgetId }) => {
 };
 
 export default TransactionFilter;
+

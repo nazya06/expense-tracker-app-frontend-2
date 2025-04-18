@@ -1,0 +1,88 @@
+.profileContainer {
+    padding: 30px;
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .profileCard {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    object-fit: cover;
+  }
+  
+  .name {
+    font-size: 24px;
+    margin: 10px 0 5px;
+    color: #333;
+  }
+  
+  .email {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+  }
+  
+  .bio {
+    font-size: 16px;
+    color: #444;
+    margin-bottom: 5px;
+  }
+  
+  .joined {
+    font-size: 13px;
+    color: #aaa;
+  }
+  
+  .statsCard {
+    background: #f9fafb;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+  
+  .sectionTitle {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #333;
+  }
+  
+  .statsList {
+    display: flex;
+    justify-content: space-around;
+    padding: 0;
+    list-style: none;
+    font-size: 16px;
+    color: #444;
+  
+    li {
+      text-align: center;
+      strong {
+        display: block;
+        font-size: 18px;
+        color: #2ecc71;
+      }
+    }
+  }
+
+  .buttonGroup {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1rem;
+    justify-content: center;
+  }
+  
+  

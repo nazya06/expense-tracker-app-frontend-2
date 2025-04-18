@@ -1,15 +1,16 @@
-// Profile.jsx
+
 import { useEffect, useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom'; // for redirect
+import { useNavigate } from 'react-router-dom'; 
+import styles from '../styles/ProfilePage.module.scss';
 
 const Profile = () => {
   const [profile, setProfile] = useState(null);
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState('');
-  const { currentUser, logout } = useAuth(); // Assuming you have a logout method
+  const { currentUser, logout } = useAuth(); 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,7 +22,7 @@ const Profile = () => {
           }
         });
         setProfile(data);
-        setEmail(data.email); // prefill email field
+        setEmail(data.email);
       } catch (err) {
         console.error('Profile fetch error:', err.response?.data || err.message);
       } finally {
@@ -40,10 +41,10 @@ const Profile = () => {
         }
       });
       setProfile(data);
-      setMessage('✅ Profile updated');
+      setMessage('Профиль обновлен');
     } catch (err) {
       console.error('Update error:', err.response?.data || err.message);
-      setMessage('❌ Failed to update');
+      setMessage('Ошибка');
     }
   };
 
@@ -57,47 +58,50 @@ const Profile = () => {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         }
       });
-      setMessage('🗑️ Account deleted');
-      logout(); // Clear auth state
-      navigate('/login'); // Redirect to login page
+      setMessage('Account deleted');
+      logout(); 
+      navigate('/login'); 
     } catch (err) {
       console.error('Delete error:', err.response?.data || err.message);
       setMessage('❌ Failed to delete account');
     }
   };
 
-  if (loading) return <div>Loading profile data...</div>;
+  if (loading) return <div className={styles.profileContainer}>Загрузка...</div>;
 
   return (
-    <div className="profile-page">
-      <h2>👤 Your Profile</h2>
+    <div className={styles.profileContainer}>
+      <div className={styles.profileCard}>
+        <h2 className={styles.name}>👤 Профиль</h2>
 
-      {profile ? (
-        <>
-          <label>
-            Email:
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              style={{ marginLeft: '0.5rem' }}
-            />
-          </label>
-          <br /><br />
+        {profile ? (
+          <>
+            <label className={styles.label}>
+              Email: 
+              <input
+                className={styles.input}
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </label>
 
-          <button onClick={handleUpdate} style={{ marginRight: '1rem' }}>
-            ✏️ Update Profile
-          </button>
+            <div className={styles.buttonGroup}>
+              <button className={styles.updateButton} onClick={handleUpdate}>
+                Изменить
+              </button>
 
-          <button onClick={handleDelete} style={{ background: 'red', color: 'white' }}>
-            🗑️ Delete Account
-          </button>
+              <button className={styles.deleteButton} onClick={handleDelete}>
+                Удалить профиль
+              </button>
+            </div>
 
-          {message && <p style={{ marginTop: '1rem' }}>{message}</p>}
-        </>
-      ) : (
-        <p>No profile data available</p>
-      )}
+            {message && <p className={styles.message}>{message}</p>}
+          </>
+        ) : (
+          <p>Нет данных</p>
+        )}
+      </div>
     </div>
   );
 };

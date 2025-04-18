@@ -6,10 +6,10 @@ import './AuthLayout.scss';
 const Login = () => (
   <div className="login-container">
     <div className="login-box">
-      <h2>Login</h2>
+      <h2>Логин</h2>
       <AuthForm type="login" />
       <Link to="/register" className="back-link">
-        → Don't have an account? Register
+        → Нет аккаунта? Регистрация
       </Link>
     </div>
   </div>
