@@ -12,7 +12,6 @@ export const getCurrentUser = async () => {
 export const register = async ({ name, email, password }) => {
   try {
     const response = await axios.post('http://localhost:5000/api/auth/register', { 
-      username: name,
       email,
       password, });
 

@@ -1,0 +1,77 @@
+/* styles/TransactionList.scss */
+
+.transaction-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', sans-serif;
+  
+    h2 {
+      margin-bottom: 1.5rem;
+      font-size: 2rem;
+      color: #2c3e50;
+    }
+  
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+  
+      label {
+        display: flex;
+        flex-direction: column;
+        font-weight: 600;
+        color: #34495e;
+        flex: 1 1 200px;
+  
+        input,
+        select {
+          padding: 0.5rem;
+          border-radius: 0.5rem;
+          border: 1px solid #ccc;
+          margin-top: 0.5rem;
+        }
+      }
+  
+      button {
+        background-color: #3498db;
+        color: #fff;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: background-color 0.3s;
+  
+        &:hover {
+          background-color: #2980b9;
+        }
+      }
+    }
+  
+    ul {
+      list-style: none;
+      padding: 0;
+  
+      li {
+        padding: 0.75rem 1rem;
+        background-color: #f9f9f9;
+        border-bottom: 1px solid #ddd;
+        border-radius: 0.5rem;
+        margin-bottom: 0.5rem;
+  
+        &:last-child {
+          border-bottom: none;
+        }
+      }
+    }
+  
+    .no-transactions {
+      color: #999;
+      font-style: italic;
+    }
+  }
+  

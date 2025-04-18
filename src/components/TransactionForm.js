@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-// import { useSnackbar } from 'notistack';
+import { useBudget } from '../context/BudgetContext';
+
 
 const TransactionForm = ({ onClose, onTransactionCreated }) => {
+  const { budgetId } = useBudget();
   const [formData, setFormData] = useState({
     amount: '',
-    type: 'expense',
     category: '',
     description: ''
   });
@@ -13,21 +14,25 @@ const TransactionForm = ({ onClose, onTransactionCreated }) => {
   const [categories, setCategories] = useState([]);
   const [loading] = useState(false);
   const [errors, setErrors] = useState({});
-  // const { enqueueSnackbar } = useSnackbar();
+  const token = localStorage.getItem('token');
+
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get('/api/categories');
+        const response = await axios.get('/api/categories', {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
         setCategories(response.data);
       } catch (error) {
         console.error('Failed to load categories:', error);
-
       }
     };
   
     fetchCategories();
-  }, []);
+  }, [token]);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
@@ -36,31 +41,44 @@ const TransactionForm = ({ onClose, onTransactionCreated }) => {
     }
   };
 
-  const validateForm = () => {
-    const newErrors = {};
-    if (!formData.amount || isNaN(formData.amount)) {
-      newErrors.amount = 'Сумма должна быть числом';
-    }
-    if (!formData.type) {
-      newErrors.type = 'Тип транзакции должен быть обязательным';
-    }
-    // if (!formData.category) {
-    //   newErrors.category = 'Категория должна быть обязательной';
-    // }
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+  // const validateForm = () => {
+  //   const newErrors = {};
+  //   if (!formData.amount || isNaN(formData.amount)) {
+  //     newErrors.amount = 'Сумма должна быть числом';
+  //   }
+  //   if (!formData.type) {
+  //     newErrors.type = 'Тип транзакции должен быть обязательным';
+  //   }
+  //   // if (!formData.category) {
+  //   //   newErrors.category = 'Категория должна быть обязательной';
+  //   // }
+  //   setErrors(newErrors);
+  //   return Object.keys(newErrors).length === 0;
+  // };
 
 
 const handleSubmit = async (e) => {
   e.preventDefault();
+
+
+
   try {
-    const response = await axios.post('/api/transactions', {
-      amount: Number(formData.amount),
+    console.log("🚀 Отправка на сервер:", {
+      amount: formData.amount,
       type: formData.type,
-      categoryId: formData.category, 
+      CategoryId: formData.category,
+      BudgetId: budgetId,
       description: formData.description,
-      date: formData.date || new Date() 
+      date: formData.date || new Date()
+    });
+
+    const response = await axios.post('/api/transactions', {
+      amount: formData.amount,
+      type: formData.type,
+      CategoryId: formData.category, 
+      BudgetId: budgetId,
+      description: formData.description,
+      date: formData.date || new Date()
     });
     onTransactionCreated(response.data);
     onClose();
@@ -86,7 +104,7 @@ const handleSubmit = async (e) => {
         {errors.amount && <span style={styles.errorText}>{errors.amount}</span>}
       </div>
 
-      <div style={styles.formGroup}>
+      {/* <div style={styles.formGroup}>
         <label>Тип *</label>
         <select
           name="type"
@@ -98,7 +116,7 @@ const handleSubmit = async (e) => {
           <option value="expense">Расход</option>
         </select>
         {errors.type && <span style={styles.errorText}>{errors.type}</span>}
-      </div>
+      </div> */}
 
       <div style={styles.formGroup}>
         <label>Категория *</label>
@@ -110,7 +128,7 @@ const handleSubmit = async (e) => {
         >
           <option value="">Выберите категорию</option>
           {categories.map(cat => (
-            <option key={cat._id} value={cat._id}>{cat.name}</option>
+            <option key={cat.id} value={cat.id}>{cat.name}</option>
           ))}
         </select>
         {errors.category && <span style={styles.errorText}>{errors.category}</span>}

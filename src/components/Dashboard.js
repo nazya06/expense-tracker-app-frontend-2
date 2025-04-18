@@ -51,13 +51,13 @@ const Dashboard = () => {
               <li key={transaction._id} style={styles.transactionItem}>
 <span 
   style={{
-    ...styles.transactionAmount,
-    color: transaction.type === 'expense' ? '#e74c3c' : '#2ecc71'
-  }}
->
-  {transaction.type === 'expense' ? '-' : '+'}
-  {transaction.amount.toFixed(2)}
-</span>
+      ...styles.transactionAmount,
+      color: transaction.amount < 0 ? '#e74c3c' : '#2ecc71'
+    }}
+  >
+    {transaction.amount < 0 ? '-' : '+'}
+    {Math.abs(transaction.amount).toFixed(2)}
+    </span>
                 <span>{transaction.category?.name || 'Uncategorized'}</span>
                 {transaction.description && (
                   <p style={styles.transactionDesc}>{transaction.description}</p>
